@@ -1,5 +1,59 @@
 Ram Ram Bhai Sareya Ne -75 Problem Challenge
 day 6 
+solution 1:
+#include <stdbool.h>
+
+bool isValidSudoku(char** board, int boardSize, int* boardColSize) {
+    // Check each row
+    for (int i = 0; i < boardSize; i++) {
+        int seen[10] = {0}; // 1-9, initialize to 0
+        for (int j = 0; j < *boardColSize; j++) {
+            char current = board[i][j];
+            if (current != '.') {
+                int digit = current - '0';
+                if (seen[digit] == 1) {
+                    return false; // Duplicate in the row
+                }
+                seen[digit] = 1;
+            }
+        }
+    }
+
+    // Check each column
+    for (int j = 0; j < *boardColSize; j++) {
+        int seen[10] = {0}; // 1-9, initialize to 0
+        for (int i = 0; i < boardSize; i++) {
+            char current = board[i][j];
+            if (current != '.') {
+                int digit = current - '0';
+                if (seen[digit] == 1) {
+                    return false; // Duplicate in the column
+                }
+                seen[digit] = 1;
+            }
+        }
+    }
+
+    // Check each 3x3 sub-box
+    for (int block = 0; block < 9; block++) {
+        int seen[10] = {0}; // 1-9, initialize to 0
+        for (int i = block / 3 * 3; i < block / 3 * 3 + 3; i++) {
+            for (int j = (block % 3) * 3; j < (block % 3) * 3 + 3; j++) {
+                char current = board[i][j];
+                if (current != '.') {
+                    int digit = current - '0';
+                    if (seen[digit] == 1) {
+                        return false; // Duplicate in the sub-box
+                    }
+                    seen[digit] = 1;
+                }
+            }
+        }
+    }
+
+    return true; // Board is valid
+}
+solution 2:
 class Solution {
 public:
     int findPairs(vector<int>& nums, int k) {
@@ -25,3 +79,4 @@ public:
         return count;
     }
 };
+
