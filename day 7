@@ -1,0 +1,50 @@
+Ram Ram Bhai Sareya Ne -75 Problem Challenge
+  question 1
+  class Solution {
+public:
+    bool isPalindrome(string s) {
+        string revstr;
+        for(char c : s){
+            if(isdigit(c) || isalpha(c)){
+                revstr.push_back(tolower(c));
+            }
+        }
+        int start=0;
+        int end=revstr.length()-1;
+
+        while(start<end){
+            if(revstr[start]!=revstr[end]){
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+};
+
+question 2
+  class Solution {
+public:
+    bool isAnagram(string s, string t) {
+    if(s.length()!=t.length()){
+        return false;
+    }
+    const int alpha=26;
+    int charcount[alpha]={0};
+
+    for(char c : s){
+        charcount[c-'a']++;
+    }
+    for(char c:t){
+        charcount[c-'a']--;
+    }
+    for(int count : charcount){
+        if(count!=0){
+            return false;
+        }
+    }
+    return true;
+}
+};
+  
