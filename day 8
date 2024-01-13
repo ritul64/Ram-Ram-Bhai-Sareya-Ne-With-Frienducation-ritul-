@@ -1,0 +1,97 @@
+Ram Ram Bhai Sareya Ne -75 Problem Challenge
+  question 1
+  char* longestPalindrome(char* s) {
+    int len = strlen(s);
+
+    
+    int dp[len][len];
+    memset(dp, 0, sizeof(dp));
+
+    
+    for (int i = 0; i < len; i++) {
+        dp[i][i] = 1;
+    }
+
+    int start = 0; 
+    int maxLength = 1; 
+
+    
+    for (int i = 0; i < len - 1; i++) {
+        if (s[i] == s[i + 1]) {
+            dp[i][i + 1] = 1;
+            start = i;
+            maxLength = 2;
+        }
+    }
+
+    
+    for (int k = 3; k <= len; k++) {
+        for (int i = 0; i < len - k + 1; i++) {
+            int j = i + k - 1;
+
+            if (dp[i + 1][j - 1] && s[i] == s[j]) {
+                dp[i][j] = 1;
+
+                if (k > maxLength) {
+                    start = i;
+                    maxLength = k;
+                }
+            }
+        }
+    }
+
+    char* result = (char*)malloc((maxLength + 1) * sizeof(char));
+    strncpy(result, s + start, maxLength);
+    result[maxLength] = '\0';
+
+    return result;
+}
+question 2
+  class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = findLeftmost(nums, target);
+        int right = findRightmost(nums, target);
+        
+        return {left, right};
+    }
+    
+private:
+    int findLeftmost(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        int index = -1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (nums[mid] >= target) {
+                right = mid - 1;
+                if (nums[mid] == target) index = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        
+        return index;
+    }
+    
+    int findRightmost(vector<int>& nums, int target) {
+        int left = 0;
+        int right = nums.size() - 1;
+        int index = -1;
+        
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            
+            if (nums[mid] <= target) {
+                left = mid + 1;
+                if (nums[mid] == target) index = mid;
+            } else {
+                right = mid - 1;
+            }
+        }
+        
+        return index;
+    }
+};
