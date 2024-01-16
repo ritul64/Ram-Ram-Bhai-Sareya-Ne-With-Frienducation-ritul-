@@ -1,0 +1,47 @@
+Ram Ram Bhai Sareya Ne -75 Problem Challenge
+  question 2
+  #include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool isValid(int mid, const vector<int>& boards, int k) {
+    int paintersRequired = 1;
+    int currentLength = 0;
+
+    for (int board : boards) {
+        currentLength += board;
+        if (currentLength > mid) {
+            paintersRequired++;
+            currentLength = board;
+        }
+    }
+
+    return paintersRequired <= k;
+}
+
+int minimumTimeToPaint(const vector<int>& boards, int k) {
+    int low = *max_element(boards.begin(), boards.end());
+    int high = accumulate(boards.begin(), boards.end(), 0);
+
+    while (low < high) {
+        int mid = low + (high - low) / 2;
+
+        if (isValid(mid, boards, k)) {
+            high = mid;
+        } else {
+            low = mid + 1;
+        }
+    }
+
+    return low;
+}
+
+int main() {
+    vector<int> boards = {10, 20, 30, 40};
+    int k = 2;
+    int result = minimumTimeToPaint(boards, k);
+    cout << "Minimum time required: " << result << endl;
+
+    return 0;
+}
