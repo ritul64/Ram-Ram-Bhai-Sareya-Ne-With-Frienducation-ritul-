@@ -1,0 +1,51 @@
+Ram Ram Bhai Sareya Ne -75 Problem Challenge
+question 1
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int n = nums.size();
+        
+        
+        int i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+        
+      
+        if (i < 0) {
+            reverse(nums.begin(), nums.end());
+            return;
+        }
+        
+        
+        int j = n - 1;
+        while (nums[j] <= nums[i]) {
+            j--;
+        }
+        swap(nums[i], nums[j]);
+        
+      
+        reverse(nums.begin() + i + 1, nums.end());
+    }
+};
+
+  
+  question 2
+  class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int majority_candidate = 0;
+        int count = 0;
+        
+        for (int num : nums) {
+            if (count == 0) {
+                majority_candidate = num;
+            }
+            count += (num == majority_candidate) ? 1 : -1;
+        }
+        
+        return majority_candidate;
+    }
+};
+
+  
