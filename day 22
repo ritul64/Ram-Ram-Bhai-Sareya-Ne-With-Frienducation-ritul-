@@ -1,4 +1,6 @@
-Ram Ram bhai saa75 Problem Challenge
+Ram Ram Bhai Sareya Ne -75 Problem Challenge
+
+  question 1
 bool canJump(int* nums, int numsSize) {
     int maxReach = 0;
 
